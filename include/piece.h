@@ -1,9 +1,8 @@
-#define INIT_H 8
-#define INIT_W 8
-#define MAX_H 16
-#define MAX_W 16
-#define N_MOV 6
+#define N_MOV 5
 #define N_PTYPE 6
+#define N_PIECES_PER_SIDE 16
+#define N_PIECES 32
+#define N_PAWNS 8
 
 typedef enum PieceType
 {
@@ -17,7 +16,6 @@ typedef enum PieceType
 
 enum Movement
 {
-    DUAL,
     FWD,
     BKWD,
     HORIZ,
@@ -36,9 +34,9 @@ typedef struct Coordinate
  */
 typedef struct Model
 {
-    int     val;              /* Value of each piece matching official chess rules */
-    int     mov_range[N_MOV]; /* Ranges in the order of Movement enum */
-    char    ch;               /* The character used to represent this piece in ncurses */
+    int  val;              /* Value of each piece matching official chess rules */
+    int  mov_range[N_MOV]; /* Ranges in the order of Movement enum */
+    char ch;               /* The character used to represent this piece in ncurses */
 } model_t;
 
 /*
@@ -46,8 +44,10 @@ typedef struct Model
  */
 typedef struct Piece
 {
+    int     id;
     ptype_t type;
     coord_t pos;
+    int     color;
 } piece_t;
 
-model_t *get_model(ptype_t type);
+void init_models(model_t models[N_PTYPE]);
