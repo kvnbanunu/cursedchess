@@ -24,6 +24,7 @@ enum W_NAME
 
 int  start(WINDOW *windows[N_WIN]);
 void render_board(WINDOW *win, model_t models[N_PTYPE], square_t board[MAX_H][MAX_W], piece_t pieces[N_PIECES]);
+void get_input();
 void cleanup(WINDOW *windows[N_WIN]);
 
 #endif

@@ -7,6 +7,7 @@ int start(WINDOW *windows[N_WIN])
     initscr();
     cbreak();
     noecho();
+    keypad(stdscr, TRUE);
     if(has_colors() == FALSE)
     {
         printw("No color");
@@ -24,6 +25,8 @@ int start(WINDOW *windows[N_WIN])
     windows[OPPONENT] = newwin(1, MAX_W, 1, 1);
     windows[BOARD]    = newwin(MAX_H, MAX_W, 2, 1);
     windows[PLAYER]   = newwin(1, MAX_W, MAX_H + 2, 1);
+    keypad(windows[BOARD], TRUE);
+    mousemask(BUTTON1_CLICKED, NULL);
     return 0;
 }
 
@@ -46,10 +49,30 @@ void render_board(WINDOW *win, model_t models[N_PTYPE], square_t board[MAX_H][MA
                 continue;
             }
             p = pieces[sq.occupied - 1];
-            mvwaddch(win, y, x, models[p.type].ch | COLOR_PAIR(((sq.color << 1) | p.color) + 1));
+            mvwaddch(win, y, x, models[p.type].ch | COLOR_PAIR(((sq.color << 1) | p.color) + 1) | A_BOLD);
         }
     }
     wrefresh(win);
+}
+
+void get_input()
+{
+    MEVENT e;
+    int    ch;
+    while((ch = getch()) != 'q')
+    {
+        if(ch == KEY_MOUSE)
+        {
+            if(getmouse(&e) == OK)
+            {
+                if(e.bstate & BUTTON1_CLICKED)
+                {
+                    move(e.y, e.x);
+                    refresh();
+                }
+            }
+        }
+    }
 }
 
 void cleanup(WINDOW *windows[N_WIN])

@@ -23,7 +23,7 @@ int main(void)
 
     render_board(windows[BOARD], models, board, pieces);
 
-    getch();
+    get_input();
     cleanup(windows);
     return 0;
 }
