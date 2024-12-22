@@ -1,3 +1,6 @@
+#ifndef BOARD_H
+#define BOARD_H
+
 #define INIT_POS 2
 #define INIT_H 8
 #define INIT_W 8
@@ -11,7 +14,9 @@ typedef struct Square
 {
     int color;       // 0 white, 1 black
     int active;      // bool
-    int occupied;    // bool
+    int occupied;    // 0=false, otherwise id of piece
 } square_t;
 
 void init_board(square_t board[MAX_H][MAX_W]);
+
+#endif

@@ -1,3 +1,6 @@
+#ifndef PIECE_H
+#define PIECE_H
+
 #define N_MOV 5
 #define N_PTYPE 6
 #define N_PIECES_PER_SIDE 16
@@ -51,3 +54,5 @@ typedef struct Piece
 } piece_t;
 
 void init_models(model_t models[N_PTYPE]);
+
+#endif
