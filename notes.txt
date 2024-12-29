@@ -1,0 +1,11 @@
+board[][].occupied if !0 is the piece id offset by +1
+
+MAX_VALID_MOVES is 43 for a queen
+
+
+standard order of params
+state
+model
+board
+pieces
+coord

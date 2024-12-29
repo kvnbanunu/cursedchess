@@ -23,9 +23,9 @@ enum ColorPairs
 
 enum W_NAME
 {
-    BOARD,
-    PLAYER,
-    OPPONENT
+    W_BOARD,
+    W_PLAYER,
+    W_OPPONENT
 };
 
 int  start(WINDOW *windows[N_WIN]);

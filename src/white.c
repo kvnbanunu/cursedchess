@@ -5,11 +5,13 @@
 
 int main(void)
 {
+    gstate_t state[N_PLAYERS];
     model_t  models[N_PTYPE];
     square_t board[MAX_W][MAX_H];
     piece_t  pieces[N_PIECES];
     WINDOW  *windows[N_WIN];
 
+    init_state(state);
     init_models(models);
     init_board(board);
     init_game(board, pieces);
@@ -21,7 +23,7 @@ int main(void)
         return -1;
     }
 
-    render_board(windows[BOARD], models, board, pieces);
+    render_board(windows[W_BOARD], models, board, pieces);
 
     get_input();
     cleanup(windows);
