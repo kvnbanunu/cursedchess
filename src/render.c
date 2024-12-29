@@ -19,6 +19,10 @@ int start(WINDOW *windows[N_WIN])
     init_pair(BW, COLOR_BLACK, COLOR_CYAN);
     init_pair(WB, COLOR_WHITE, COLOR_BLUE);
     init_pair(BB, COLOR_BLACK, COLOR_BLUE);
+    init_pair(WHL, COLOR_WHITE, COLOR_GREEN);
+    init_pair(BHL, COLOR_BLACK, COLOR_GREEN);
+    init_pair(WCHK, COLOR_WHITE, COLOR_RED);
+    init_pair(BCHK, COLOR_BLACK, COLOR_RED);
 
     box(stdscr, 0, 0);
     refresh();

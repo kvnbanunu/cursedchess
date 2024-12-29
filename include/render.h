@@ -6,13 +6,19 @@
 #include <ncurses.h>
 
 #define N_WIN 3
+#define HIGHLIGHT_COLOR 5
+#define CHECK_COLOR 7
 
 enum ColorPairs
 {
     WW = 1,
     BW,
     WB,
-    BB
+    BB,
+    WHL,
+    BHL,
+    WCHK,
+    BCHK
 };
 
 enum W_NAME
