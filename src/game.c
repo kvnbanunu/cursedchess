@@ -48,9 +48,57 @@ void init_game(square_t board[MAX_W][MAX_H], piece_t pieces[N_PIECES])
     add_pieces(board, pieces, &w_piece, &b_piece, start);
 }
 
-static void get_moves_king(int castle, model_t model, square_t board[MAX_W][MAX_H], piece_t p, coord_t valid_moves[MAX_VALID])
+static int check_bounds(square_t board[MAX_W][MAX_H], const bounds_t* bounds, const coord_t* pos, const int p_id)
 {
-    
+    if (pos->x > bounds->x_min && pos->x > bounds->x_max && pos->y < bounds->y_min && pos->y > bounds->y_max)
+    {
+        return 0;
+    }
+    if (board[pos->x][pos->y].occupied == 0)
+    {
+        return 1;
+    }
+    int id = board[pos->x][pos->y].occupied;
+    if (p_id == 0)
+    {
+        if (id <= N_PIECES_PER_SIDE)
+        {
+            return 0;
+        }
+        return 1;
+    }
+    if (id > N_PIECES_PER_SIDE)
+    {
+        return 0;
+    }
+    return 1;
+}
+
+static void get_moves_king(int castle, model_t model, square_t board[MAX_W][MAX_H], bounds_t* bounds, piece_t p, coord_t valid_moves[MAX_VALID], const int p_id)
+{
+    coord_t c = p.pos;
+    coord_t copy = c;
+    int moves_added = 0;
+    if (model.mov_range[FWD])
+    {
+        copy.y = (p_id) ? (c.y + model.mov_range[FWD]) : (c.y - model.mov_range[FWD]);
+        if (check_bounds(board, bounds, &copy, p_id))
+        {
+            valid_moves[moves_added++] = copy;
+        }
+    }
+    if (model.mov_range[BKWD])
+    {
+        copy.y = (p_id) ? (c.y - model.mov_range[BKWD]) : (c.y + model.mov_range[BKWD]);
+        if (check_bounds(board, bounds, &copy, p_id))
+        {
+            valid_moves[moves_added++] = copy;
+        }
+    }
+    if (model.mov_range[HORIZ])
+    {
+        copy.x = (p_id) ? (c.x)
+    }
 }
 
 static void get_moves_queen()
@@ -78,14 +126,14 @@ static void get_moves_pawn()
 
 }
 
-void get_moves(gstate_t state[N_PLAYERS], model_t models[N_PTYPE], square_t board[MAX_W][MAX_H], piece_t pieces[N_PIECES], coord_t valid_moves[MAX_VALID], coord_t selected)
+void get_moves(gstate_t state[N_PLAYERS], model_t models[N_PTYPE], square_t board[MAX_W][MAX_H], const bounds_t* bounds, piece_t pieces[N_PIECES], coord_t valid_moves[MAX_VALID], coord_t selected, const int p_id)
 {
     piece_t p = pieces[board[selected.x][selected.y].occupied];
     memset(valid_moves, 0, sizeof(coord_t) * MAX_VALID);
     switch(p.type)
     {
         case KING:
-            get_moves_king(state[PLAYER].castle, models[KING], board, p, valid_moves);
+            get_moves_king(state[p_id].castle, models[KING], board, bounds, p, valid_moves, p_id);
             break;
         case QUEEN:
             break;

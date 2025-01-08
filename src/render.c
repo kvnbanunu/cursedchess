@@ -26,10 +26,10 @@ int start(WINDOW *windows[N_WIN])
 
     box(stdscr, 0, 0);
     refresh();
-    windows[OPPONENT] = newwin(1, MAX_W, 1, 1);
-    windows[BOARD]    = newwin(MAX_H, MAX_W, 2, 1);
-    windows[PLAYER]   = newwin(1, MAX_W, MAX_H + 2, 1);
-    keypad(windows[BOARD], TRUE);
+    windows[W_OPPONENT] = newwin(1, MAX_W, 1, 1);
+    windows[W_BOARD]    = newwin(MAX_H, MAX_W, 2, 1);
+    windows[W_PLAYER]   = newwin(1, MAX_W, MAX_H + 2, 1);
+    keypad(windows[W_BOARD], TRUE);
     mousemask(BUTTON1_CLICKED, NULL);
     return 0;
 }

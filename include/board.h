@@ -17,6 +17,14 @@ typedef struct Square
     int occupied;    // 0=false, otherwise id of piece
 } square_t;
 
-void init_board(square_t board[MAX_H][MAX_W]);
+typedef struct Bounds
+{
+    int x_min;
+    int x_max;
+    int y_min;
+    int y_max;
+} bounds_t;
+
+void init_board(square_t board[MAX_H][MAX_W], bounds_t* bounds);
 
 #endif

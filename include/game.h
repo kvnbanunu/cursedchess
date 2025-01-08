@@ -8,8 +8,6 @@
 #define MAX_VALID 100
 #define WHITE 0
 #define BLACK 1
-#define PLAYER 0
-#define OPPONENT 1
 
 typedef struct GameState
 {
@@ -32,6 +30,6 @@ void init_game(square_t board[MAX_W][MAX_H], piece_t pieces[N_PIECES]);
 /**
  *
  */
-void get_moves(gstate_t state[N_PLAYERS], model_t models[N_PTYPE], square_t board[MAX_W][MAX_H], piece_t pieces[N_PIECES], coord_t valid_moves[MAX_VALID], coord_t selected);
+void get_moves(gstate_t state[N_PLAYERS], model_t models[N_PTYPE], square_t board[MAX_W][MAX_H], const bounds_t* bounds, piece_t pieces[N_PIECES], coord_t valid_moves[MAX_VALID], coord_t selected, int p_id);
 
 #endif
